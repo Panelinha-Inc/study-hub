@@ -6,17 +6,16 @@ admin.initializeApp(functions.config().firebase);
 const auth = admin.auth();
 const usersDB = admin.firestore().collection('Users');
 
-// const auth = require('./src/auth.js');
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
 exports.helloWorld = functions.https.onRequest((request, response) => {
     functions.logger.info("Hello logs!", { structuredData: true });
-    response.send("Obviamente criamos o projeto!");
+    response.send("StudyHub na área!");
 });
 
-exports.auth = functions.https.onRequest(async (req, res) => {
-    const { email, password, username, bio, locate, photoUrl, areasDeInteresse } = req.body;
+exports.createUser = functions.https.onRequest(async (req, res) => {
+    const { email, password, username, bio, locate, photoBase64, areasDeInteresse } = req.body;
 
     const user = await auth.createUser({
         email,
@@ -27,8 +26,8 @@ exports.auth = functions.https.onRequest(async (req, res) => {
     usersDB.doc(user.uid).set({
         bio,
         locate,
-        photoUrl,
-        areasDeInteresse
+        areasDeInteresse,
+        photoBase64
     })
 
     res.json(user.uid)
