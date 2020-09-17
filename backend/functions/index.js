@@ -21,20 +21,25 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 exports.createUser = functions.https.onRequest(async (req, res) => {
     const { email, password, username, bio, locate, photoBase64, areasDeInteresse } = req.body;
 
-    const user = await auth.createUser({
-        email,
-        password,
-        username,
-    });
+    try {    
+        const user = await auth.createUser({
+            email,
+            password,
+            username,
+        });
 
-    usersDB.doc(user.uid).set({
-        bio,
-        locate,
-        areasDeInteresse,
-        photoBase64
-    })
+        usersDB.doc(user.uid).set({
+            bio,
+            locate,
+            areasDeInteresse,
+            photoBase64
+        })
 
-    res.json(user.uid)
+        res.json(user.uid)
+    } catch (error) {
+        res.json(error);
+    }
+
 });
 
 exports.getUserData = functions.https.onRequest(async (req, res) => {
