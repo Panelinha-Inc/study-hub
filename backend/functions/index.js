@@ -94,6 +94,7 @@ exports.createGrupo = functions.https.onRequest(async (req, res) => {
         photoBase64,
         "participantes": [admin]
     }).then((snapshot) => {
+        groupsDB.doc(snapshot.id).update({ "code": `${admin.slice(0, 3)}${snapshot.id.slice(0, 3)}` })
         res.json(snapshot.id);
     }).catch((e) => {
         res.json(e);
@@ -111,8 +112,18 @@ exports.updateGroups = functions.https.onRequest(async (req, res) => {
     });
 })
 
+exports.deleteGroup = functions.https.onRequest(async (req, res) => {
+    const { id } = req.body;
+
+    await groupsDB.doc(id).delete().then(() => {
+        res.statusCode(200);
+    }).catch((e) => {
+        res.json(e);
+    })
+})
+
 // exports.searchGroupsByName = functions.https.onRequest(async (req, res) => {
-//     const { name, uid } = req.body;
+//     const { name } = req.body;
 
 //     await groupsDB.where()
 // });
