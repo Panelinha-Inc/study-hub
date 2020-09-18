@@ -151,6 +151,20 @@ exports.searchGroupsByName = functions.https.onRequest(async (req, res) => {
     res.json(groups_data)
 });
 
+exports.searchGroupsByArea = functions.https.onRequest(async (req, res) => {
+    const { areasDeInteresse } = req.body;
+
+    const groups = await groupsDB.where('areasDeInteresse', 'array-contains-any', areasDeInteresse).get();
+
+    var groups_data = {}
+
+    groups.forEach(doc => {
+        groups_data[doc.id] = doc.data();
+    })
+
+    res.json(groups_data)
+})
+
 // exports.login = functions.https.onRequest(async (req, res) => {
 //     const { email, password } = req.body;
 //     auth.getUserByEmail
