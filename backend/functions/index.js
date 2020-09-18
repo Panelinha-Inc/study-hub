@@ -93,12 +93,29 @@ exports.createGrupo = functions.https.onRequest(async (req, res) => {
         areasDeInteresse,
         photoBase64,
         "participantes": [admin]
-    }).then(() => {
+    }).then((snapshot) => {
+        res.json(snapshot.id);
+    }).catch((e) => {
+        res.json(e);
+    });
+})
+
+exports.updateGroups = functions.https.onRequest(async (req, res) => {
+    const data = req.body;
+    const id_group = req.headers.id;
+
+    await groupsDB.doc(id_group).update(data).then(() => {
         res.statusCode(200);
     }).catch((e) => {
         res.json(e);
     });
 })
+
+// exports.searchGroupsByName = functions.https.onRequest(async (req, res) => {
+//     const { name, uid } = req.body;
+
+//     await groupsDB.where()
+// });
 
 // exports.login = functions.https.onRequest(async (req, res) => {
 //     const { email, password } = req.body;
