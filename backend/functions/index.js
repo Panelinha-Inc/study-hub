@@ -21,7 +21,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 exports.createUser = functions.https.onRequest(async (req, res) => {
     const { email, password, username, bio, locate, photoBase64, areasDeInteresse } = req.body;
 
-    try {    
+    try {
         const user = await auth.createUser({
             email,
             password,
@@ -46,12 +46,20 @@ exports.getUserData = functions.https.onRequest(async (req, res) => {
     const { uid } = req.body;
 
     res.json((await usersDB.doc(uid).get()).data());
-})
+});
+
+exports.checkEmailExists = functions.https.onRequest(async (req, res) => {
+    try {
+        const users = await auth.getUserByEmail(req.body.email);
+        res.json({ "exist": true });
+    } catch (error) {
+        res.json({ "exist": false });
+    }
+});
 
 // exports.login = functions.https.onRequest(async (req, res) => {
 //     const { email, password } = req.body;
 //     auth.getUserByEmail
 //     res.json(firebase.auth().signInWithEmailAndPassword(email, password));
 // })
-
 
