@@ -68,6 +68,18 @@ exports.updateUser = functions.https.onRequest(async (req, res) => {
     });
 });
 
+exports.deleteUser = functions.https.onRequest(async (req, res) => {
+    const { uid } = req.body;
+
+    await auth.deleteUser(uid).then(async () => {
+        // apagar dos grupos
+        await usersDB.doc(uid).delete();
+        res.statusCode(200)
+    }).catch((e) => {
+        res.json(e)
+    })
+})
+
 // exports.login = functions.https.onRequest(async (req, res) => {
 //     const { email, password } = req.body;
 //     auth.getUserByEmail
