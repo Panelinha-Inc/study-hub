@@ -57,6 +57,17 @@ exports.checkEmailExists = functions.https.onRequest(async (req, res) => {
     }
 });
 
+exports.updateUser = functions.https.onRequest(async (req, res) => {
+    const data = req.body;
+    const uid = req.headers.uid;
+
+    await usersDB.doc(uid).update(data).then(() => {
+        res.statusCode(200);
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
 // exports.login = functions.https.onRequest(async (req, res) => {
 //     const { email, password } = req.body;
 //     auth.getUserByEmail
