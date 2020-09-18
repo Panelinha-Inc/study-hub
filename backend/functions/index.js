@@ -79,6 +79,7 @@ exports.deleteUser = functions.https.onRequest(async (req, res) => {
     }).catch((e) => {
         res.json(e)
     })
+
 })
 
 exports.createGrupo = functions.https.onRequest(async (req, res) => {
@@ -99,6 +100,7 @@ exports.createGrupo = functions.https.onRequest(async (req, res) => {
     }).catch((e) => {
         res.json(e);
     });
+
 })
 
 exports.updateGroups = functions.https.onRequest(async (req, res) => {
