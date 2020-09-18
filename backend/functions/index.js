@@ -93,7 +93,8 @@ exports.createGrupo = functions.https.onRequest(async (req, res) => {
         private,
         areasDeInteresse,
         photoBase64,
-        "participantes": [admin]
+        "participantes": [admin],
+        "waiting": []
     }).then((snapshot) => {
         groupsDB.doc(snapshot.id).update({ "code": `${admin.slice(0, 3)}${snapshot.id.slice(0, 3)}` })
         res.json(snapshot.id);
@@ -163,6 +164,20 @@ exports.searchGroupsByArea = functions.https.onRequest(async (req, res) => {
     })
 
     res.json(groups_data)
+})
+
+exports.subscribeGroup = functions.https.onRequest(async (req, res) => {
+    const { id, uid } = req.body;
+
+    const group = await groupsDB.doc(id);
+
+    if ((await group.get()).data()['private']) {
+        group.update({ "waiting": admin.firestore.FieldValue.arrayUnion(uid) });
+    } else {
+        group.update({ "participantes": admin.firestore.FieldValue.arrayUnion(uid) });
+    }
+
+    res.json({})
 })
 
 // exports.login = functions.https.onRequest(async (req, res) => {
