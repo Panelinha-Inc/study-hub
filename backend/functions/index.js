@@ -122,6 +122,19 @@ exports.deleteGroup = functions.https.onRequest(async (req, res) => {
     })
 })
 
+exports.getGroupByCode = functions.https.onRequest(async (req, res) => {
+    const { code } = req.body;
+
+    await groupsDB.where('code', '==', code).get().then((snapshots) => {
+        snapshots.forEach(doc => {
+            res.json(doc.data())
+            // console.log(doc.id)//, '=>', doc.data());
+        });
+    }).catch((e) => {
+        res.json(e);
+    })
+})
+
 // exports.searchGroupsByName = functions.https.onRequest(async (req, res) => {
 //     const { name } = req.body;
 
