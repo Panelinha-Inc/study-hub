@@ -173,11 +173,26 @@ exports.subscribeGroup = functions.https.onRequest(async (req, res) => {
 
     if ((await group.get()).data()['private']) {
         group.update({ "waiting": admin.firestore.FieldValue.arrayUnion(uid) });
+        res.json({ "added": "waiting" })
     } else {
         group.update({ "participantes": admin.firestore.FieldValue.arrayUnion(uid) });
+        res.json({ "added": "participantes" })
     }
 
-    res.json({})
+})
+
+exports.listGroups = functions.https.onRequest(async (req, res) => {
+    const { uid } = req.body;
+
+    const groups = await groupsDB.where('participantes', 'array-contains', uid).get();
+
+    var groups_data = {}
+
+    groups.forEach(doc => {
+        groups_data[doc.id] = doc.data();
+    })
+
+    res.json(groups_data)
 })
 
 // exports.login = functions.https.onRequest(async (req, res) => {
