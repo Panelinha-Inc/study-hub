@@ -93,7 +93,8 @@ exports.createGrupo = functions.https.onRequest(async (req, res) => {
         private,
         areasDeInteresse,
         photoBase64,
-        "participantes": [admin]
+        "participantes": [admin],
+        "waiting": []
     }).then((snapshot) => {
         groupsDB.doc(snapshot.id).update({ "code": `${admin.slice(0, 3)}${snapshot.id.slice(0, 3)}` })
         res.json(snapshot.id);
@@ -137,11 +138,62 @@ exports.getGroupByCode = functions.https.onRequest(async (req, res) => {
     })
 })
 
-// exports.searchGroupsByName = functions.https.onRequest(async (req, res) => {
-//     const { name } = req.body;
+exports.searchGroupsByName = functions.https.onRequest(async (req, res) => {
+    const { nome } = req.body;
 
-//     await groupsDB.where()
-// });
+    const groups = await groupsDB.orderBy('nome').startAt(nome).endAt(nome + '~').get();
+
+    var groups_data = {};
+
+    groups.forEach(doc => {
+        groups_data[doc.id] = doc.data();
+    })
+
+    res.json(groups_data)
+});
+
+exports.searchGroupsByArea = functions.https.onRequest(async (req, res) => {
+    const { areasDeInteresse } = req.body;
+
+    const groups = await groupsDB.where('areasDeInteresse', 'array-contains-any', areasDeInteresse).get();
+
+    var groups_data = {}
+
+    groups.forEach(doc => {
+        groups_data[doc.id] = doc.data();
+    })
+
+    res.json(groups_data)
+})
+
+exports.subscribeGroup = functions.https.onRequest(async (req, res) => {
+    const { id, uid } = req.body;
+
+    const group = await groupsDB.doc(id);
+
+    if ((await group.get()).data()['private']) {
+        group.update({ "waiting": admin.firestore.FieldValue.arrayUnion(uid) });
+        res.json({ "added": "waiting" })
+    } else {
+        group.update({ "participantes": admin.firestore.FieldValue.arrayUnion(uid) });
+        res.json({ "added": "participantes" })
+    }
+
+})
+
+exports.listGroups = functions.https.onRequest(async (req, res) => {
+    const { uid } = req.body;
+
+    const groups = await groupsDB.where('participantes', 'array-contains', uid).get();
+
+    var groups_data = {}
+
+    groups.forEach(doc => {
+        groups_data[doc.id] = doc.data();
+    })
+
+    res.json(groups_data)
+})
 
 // exports.login = functions.https.onRequest(async (req, res) => {
 //     const { email, password } = req.body;
