@@ -9,6 +9,7 @@ firebase.initializeApp(admin.credential)
 
 const auth = admin.auth();
 const usersDB = admin.firestore().collection('Users');
+const groupsDB = admin.firestore().collection('Groups');
 
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -21,7 +22,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 exports.createUser = functions.https.onRequest(async (req, res) => {
     const { email, password, username, bio, locate, photoBase64, areasDeInteresse } = req.body;
 
-    try {    
+    try {
         const user = await auth.createUser({
             email,
             password,
@@ -46,6 +47,57 @@ exports.getUserData = functions.https.onRequest(async (req, res) => {
     const { uid } = req.body;
 
     res.json((await usersDB.doc(uid).get()).data());
+});
+
+exports.checkEmailExists = functions.https.onRequest(async (req, res) => {
+    try {
+        const users = await auth.getUserByEmail(req.body.email);
+        res.json({ "exist": true });
+    } catch (error) {
+        res.json({ "exist": false });
+    }
+});
+
+exports.updateUser = functions.https.onRequest(async (req, res) => {
+    const data = req.body;
+    const uid = req.headers.uid;
+
+    await usersDB.doc(uid).update(data).then(() => {
+        res.statusCode(200);
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+exports.deleteUser = functions.https.onRequest(async (req, res) => {
+    const { uid } = req.body;
+
+    await auth.deleteUser(uid).then(async () => {
+        // apagar dos grupos
+        await usersDB.doc(uid).delete();
+        res.statusCode(200)
+    }).catch((e) => {
+        res.json(e)
+    })
+})
+
+exports.createGrupo = functions.https.onRequest(async (req, res) => {
+    const { nome, bio, admin, locate, private, areasDeInteresse, photoBase64 } = req.body;
+
+    await groupsDB.add({
+        nome,
+        bio,
+        admin,
+        locate,
+        private,
+        areasDeInteresse,
+        photoBase64,
+        "participantes": [admin]
+    }).then(() => {
+        res.statusCode(200);
+    }).catch((e) => {
+        res.json(e);
+    });
 })
 
 // exports.login = functions.https.onRequest(async (req, res) => {
@@ -53,5 +105,4 @@ exports.getUserData = functions.https.onRequest(async (req, res) => {
 //     auth.getUserByEmail
 //     res.json(firebase.auth().signInWithEmailAndPassword(email, password));
 // })
-
 
