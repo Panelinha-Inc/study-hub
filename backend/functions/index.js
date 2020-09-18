@@ -137,11 +137,19 @@ exports.getGroupByCode = functions.https.onRequest(async (req, res) => {
     })
 })
 
-// exports.searchGroupsByName = functions.https.onRequest(async (req, res) => {
-//     const { name } = req.body;
+exports.searchGroupsByName = functions.https.onRequest(async (req, res) => {
+    const { nome } = req.body;
 
-//     await groupsDB.where()
-// });
+    const groups = await groupsDB.orderBy('nome').startAt(nome).endAt(nome + '~').get();
+
+    var groups_data = {};
+
+    groups.forEach(doc => {
+        groups_data[doc.id] = doc.data();
+    })
+
+    res.json(groups_data)
+});
 
 // exports.login = functions.https.onRequest(async (req, res) => {
 //     const { email, password } = req.body;
