@@ -178,7 +178,25 @@ exports.subscribeGroup = functions.https.onRequest(async (req, res) => {
         group.update({ "participantes": admin.firestore.FieldValue.arrayUnion(uid) });
         res.json({ "added": "participantes" })
     }
+})
 
+exports.acceptUser = functions.https.onRequest(async (req, res) => {
+    const { uid, id, user_id } = req.body;
+
+    const group = await groupsDB.doc(id);
+
+    if ((await group.get()).data()['admin'] === uid) {
+        group.update({ "waiting": admin.firestore.FieldValue.arrayRemove(user_id) }).then(() => {
+            group.update({ "participantes": admin.firestore.FieldValue.arrayUnion(user_id) }).then(() => {
+                res.json({ "user": "accepted" });
+            }).catch((e) => {
+                group.update({ "waiting": admin.firestore.FieldValue.arrayUnion(user_id) });
+                res.json(e);
+            });
+        });
+    } else {
+        res.json({ 'msg': "user not a admin" });
+    }
 })
 
 exports.listGroups = functions.https.onRequest(async (req, res) => {
