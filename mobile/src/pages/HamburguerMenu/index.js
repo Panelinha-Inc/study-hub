@@ -19,7 +19,7 @@ export default function Menu() {
             </View>
 
             <View>
-                <TouchableOpacity style={styles.viewOptions} onPress={() => {}}>
+                <TouchableOpacity style={styles.viewOptions} onPress={() => navigation.navigate('ProfileMenu')}>
                     <SimpleLineIcons name = "user" size = {28} color = "#000" style={styles.icon}/>
                     <Text style={styles.text}>Perfil</Text>
                 </TouchableOpacity>
