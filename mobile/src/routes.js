@@ -16,10 +16,10 @@ export default function Routes() {
             
             <AppStack.Navigator screenOptions={{headerShown: false}}>
 
+                <AppStack.Screen name="SignUp" component={SignUp} />
                 <AppStack.Screen name="Home" component={Home} />
                 <AppStack.Screen name="HamburguerMenu" component={HamburguerMenu} />
                 <AppStack.Screen name="Login" component={Login} />
-                <AppStack.Screen name="SignUp" component={SignUp} />
                 <AppStack.Screen name="ProfileMenu" component={ProfileMenu} />
 
             </AppStack.Navigator>
