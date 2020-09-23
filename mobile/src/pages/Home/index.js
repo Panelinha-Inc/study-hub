@@ -7,7 +7,7 @@ import userImg from '../../assets/user.png'
 
 import styles from './styles';
 
-export default function Test() {
+export default function Home() {
 
     const navigation = useNavigation();
 
