@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList, Text, Image, TouchableOpacity} from 'react-native';
+import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native';
 import { Feather, SimpleLineIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,25 +15,25 @@ export default function Home() {
         <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.navigate('HamburguerMenu')}>
-                    <SimpleLineIcons name = "menu" size = {28} color = "#00BFF3" />
-                </TouchableOpacity> 
+                    <SimpleLineIcons name="menu" size={28} color="#00BFF3" />
+                </TouchableOpacity>
                 <Text style={styles.headerTitle}>
                     StudyHub
                 </Text>
-                <Image source={userImg} style={{width: 50, height: 50, borderRadius: 25}}/>
+                <Image source={userImg} style={{ width: 50, height: 50, borderRadius: 25 }} />
             </View>
 
-            <Text style={{marginTop: 50, fontWeight: 'bold', left: 4.3, fontSize: 18}}>Grupos:</Text>
-            
+            <Text style={{ marginTop: 50, fontWeight: 'bold', left: 4.3, fontSize: 18 }}>Grupos:</Text>
+
             <FlatList
-                data={[1,2,3,4,5,6,7,8,9,10]}
+                data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                 style={styles.testList}
                 keyExtractor={incident => String(incident)}
                 renderItem={() => (
                     <View>
                         <TouchableOpacity style={styles.groupBox}>
                             <View style={styles.viewImg}>
-                                <Image source={userImg} style={{width: 50, height: 50, borderRadius: 25}}/>
+                                <Image source={userImg} style={{ width: 50, height: 50, borderRadius: 25 }} />
                             </View>
                             <View>
                                 <Text style={styles.groupTitle}>
@@ -57,7 +57,7 @@ export default function Home() {
 
     navigation = useNavigation();
 
-    return ( 
+    return (
         <View>
             <View style={{ height: 200, justifyContent: 'space-between' }}>
                 <Button
