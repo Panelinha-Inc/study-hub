@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 import SelectMultiple from 'react-native-select-multiple'
-import { FontAwesome } from '@expo/vector-icons';
+import { SimpleLineIcons, FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
 // import { Feather, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
 // import { useNavigation } from '@react-navigation/native';
 
 import styles from './styles';
 
 export default function AreaInteresse() {
-  const [state, setState] = useState({ selectedAreas: [] })
+
+  const [state, setState] = useState({ selectedAreas: [] });
+  const navigate = useNavigation();
 
   const onSelectionsChange = (selectedAreas) => {
     setState({ selectedAreas })
@@ -40,12 +44,19 @@ export default function AreaInteresse() {
     } else if (lista.length < 1) {
       ToastAndroid.showWithGravity("Escolha no mínimo 1 opção!", ToastAndroid.LONG, ToastAndroid.BOTTOM);
     } else {
-      console.log(lista);
+      navigate.navigate('Home');
     }
   }
 
   return (
     <View style={styles.container}>
+
+      <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigate.goBack()}>
+              <SimpleLineIcons name = "arrow-left" size = {28} color = "#00BFF3" />
+          </TouchableOpacity> 
+      </View>
+
       <View>
         <Text style={[styles.text, { fontSize: 20 }]}>Áreas de interesse</Text>
         <Text style={[styles.text, { fontSize: 20 }]}>Informe suas áreas de interesse:</Text>
