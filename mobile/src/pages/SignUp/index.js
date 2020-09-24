@@ -113,7 +113,7 @@ export default function SignUp() {
                 />
 
                 <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.button}>
-                    <SimpleLineIcons name = "arrow-right" size = {28} color = "#f2f2f2" style={{alignSelf: 'center'}} />
+                    <SimpleLineIcons name = "arrow-right" size = {28} color = "#f2f2f2" style={{alignSelf: 'center', marginRight: 15}} />
                     <Text style={styles.buttonText}>Avançar</Text>
                 </TouchableOpacity>
             </View>
