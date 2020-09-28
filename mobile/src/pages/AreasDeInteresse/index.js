@@ -55,12 +55,12 @@ export default function AreaInteresse() {
           <TouchableOpacity onPress={() => navigate.goBack()}>
               <SimpleLineIcons name = "arrow-left" size = {28} color = "#00BFF3" />
           </TouchableOpacity> 
+          <Text style={styles.headerTitle}>Áreas de interesse</Text>
       </View>
 
       <View>
-        <Text style={[styles.text, { fontSize: 20 }]}>Áreas de interesse</Text>
         <Text style={[styles.text, { fontSize: 20 }]}>Informe suas áreas de interesse:</Text>
-        <Text style={[styles.text, { fontSize: 14 }]}>No mínimo 1 e no máximo 5</Text>
+        <Text style={[styles.text, { fontSize: 14 }]}>(No mínimo 1 e no máximo 5)</Text>
       </View>
       <View style={{ alignItems: "flex-end" }}>
         <Text style={styles.interestingAreasText}>{state.selectedAreas.length}/5</Text>
@@ -78,4 +78,7 @@ export default function AreaInteresse() {
 
     </View>
   )
+
+  // OBS: No botão de concluir, a função pode mudar dependendo da tela que navegou para as áreas de interesse
+  //      Isso porque, caso tenha vindo da tela de cadastro, a função é uma. Caso venha da tela de editar, é outra.
 }

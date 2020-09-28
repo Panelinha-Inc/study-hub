@@ -1,31 +1,50 @@
 import { StyleSheet } from 'react-native';
 import Constantes from 'expo-constants';
-import { color } from 'react-native-reanimated';
 
 export default StyleSheet.create({
+
     container: {
         flex: 1,
         paddingHorizontal: 24,
         paddingTop: Constantes.statusBarHeight + 20,
         backgroundColor: '#FFF'
     },
+
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20
+    },
+
+    headerTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginLeft: 50
+    },
+
     checkbox: {
         alignSelf: "center",
     },
+
     label: {
         margin: 8,
     },
+
     checkboxContainer: {
         flexDirection: "row",
     },
+
     testList: {
-        marginTop: 0,
+        marginTop: -4,
         maxHeight: 400,
+        marginBottom: 20
     },
+
     text: {
         fontWeight: 'bold',
         textAlign: "center",
     },
+
     butao: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -33,15 +52,18 @@ export default StyleSheet.create({
         alignSelf: 'center',
         backgroundColor: "#002E45",
         marginTop: 20,
+        marginBottom: 20,
         padding: 10,
         borderRadius: 10,
         height: 40,
         width: 150
     },
+
     buttonText: {
         color: "#F2F2F2",
         fontSize: 20
     },
+
     interestingAreasText: {
         fontSize: 20,
         width: 50,

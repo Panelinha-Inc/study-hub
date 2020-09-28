@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import HamburguerMenu from './pages/HamburguerMenu';
 import ProfileMenu from './pages/ProfileMenu';
 import AreaInteresse from './pages/AreasDeInteresse';
+import EditProfile from './pages/EditProfile';
 
 const AppStack = createStackNavigator();
 
@@ -23,6 +24,7 @@ export default function Routes() {
                 <AppStack.Screen name="Login" component={Login} />
                 <AppStack.Screen name="ProfileMenu" component={ProfileMenu} />
                 <AppStack.Screen name="AreaInteresse" component={AreaInteresse} />
+                <AppStack.Screen name="EditProfile" component={EditProfile} />
 
             </AppStack.Navigator>
 
