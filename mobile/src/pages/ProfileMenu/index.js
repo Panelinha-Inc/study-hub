@@ -15,7 +15,7 @@ export default function ProfileMenu() {
 
     const navigation = useNavigation();
 
-      const [state, setState] = useState(false);
+    const [state, setState] = useState(false);
 
     return (
         <View style={styles.container}>
