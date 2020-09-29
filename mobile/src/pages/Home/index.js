@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native';
 import { Feather, SimpleLineIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import userImg from '../../assets/user.png'
 
@@ -10,6 +10,10 @@ import styles from './styles';
 export default function Home() {
 
     const navigation = useNavigation();
+    const route = useRoute();
+
+    const user = route.params.user;
+    console.log(user)
 
     return (
         <View style={styles.container}>
