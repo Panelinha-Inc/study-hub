@@ -21,16 +21,8 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDFHM734VoVlYtzS4r-wK7AEjrao9RiSxo",
-  authDomain: "studyhub-9f612.firebaseapp.com",
-  databaseURL: "https://studyhub-9f612.firebaseio.com",
-  projectId: "studyhub-9f612",
-  storageBucket: "studyhub-9f612.appspot.com",
-  messagingSenderId: "394051859603",
-  appId: "1:394051859603:web:c3ad7e57f1a57b596ec966",
-  measurementId: "G-V3XLTH03D0"
-};
+const firebaseConfig = require('../../../key.json');
+
 // Initialize Firebase
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
