@@ -70,16 +70,24 @@ exports.updateUser = functions.https.onRequest(async (req, res) => {
     });
 });
 
-exports.deleteUser = functions.https.onRequest(async (req, res) => {
+exports.deactivateUser = functions.https.onRequest(async (req, res) => {
     const { uid } = req.body;
 
-    await auth.deleteUser(uid).then(async () => {
-        // apagar dos grupos
-        await usersDB.doc(uid).delete();
-        res.statusCode(200)
-    }).catch((e) => {
-        res.json(e)
-    })
+    auth.updateUser(uid, { disabled: true })
+        .then(() => {
+            res.json({ msg: 'user disabled' })
+        })
+        .catch((err) => {
+            res.json(err)
+        })
+
+    // await auth.deleteUser(uid).then(async () => {
+    //     // apagar dos grupos
+    //     await usersDB.doc(uid).delete();
+    //     res.statusCode(200)
+    // }).catch((e) => {
+    //     res.json(e)
+    // })
 
 })
 
@@ -214,16 +222,16 @@ exports.listGroups = functions.https.onRequest(async (req, res) => {
     res.json(groups_data)
 })
 
-exports.setAreasTemp = functions.https.onRequest(async (req, res) => {
-    const { data } = req.body;
+// exports.setAreasTemp = functions.https.onRequest(async (req, res) => {
+//     const { data } = req.body;
 
-    data.forEach(element => {
-        var { key, name } = element;
-        areasDB.doc(key).set({ name })
-    })
+//     data.forEach(element => {
+//         var { key, name } = element;
+//         areasDB.doc(key).set({ name })
+//     })
 
-    res.sendStatus(200)
-})
+//     res.sendStatus(200)
+// })
 
 exports.getAreas = functions.https.onRequest(async (req, res) => {
     var areas = [];
