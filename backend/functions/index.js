@@ -10,6 +10,7 @@ firebase.initializeApp(admin.credential)
 const auth = admin.auth();
 const usersDB = admin.firestore().collection('Users');
 const groupsDB = admin.firestore().collection('Groups');
+const areasDB = admin.firestore().collection('Areas');
 
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -69,16 +70,24 @@ exports.updateUser = functions.https.onRequest(async (req, res) => {
     });
 });
 
-exports.deleteUser = functions.https.onRequest(async (req, res) => {
+exports.deactivateUser = functions.https.onRequest(async (req, res) => {
     const { uid } = req.body;
 
-    await auth.deleteUser(uid).then(async () => {
-        // apagar dos grupos
-        await usersDB.doc(uid).delete();
-        res.statusCode(200)
-    }).catch((e) => {
-        res.json(e)
-    })
+    auth.updateUser(uid, { disabled: true })
+        .then(() => {
+            res.json({ msg: 'user disabled' })
+        })
+        .catch((err) => {
+            res.json(err)
+        })
+
+    // await auth.deleteUser(uid).then(async () => {
+    //     // apagar dos grupos
+    //     await usersDB.doc(uid).delete();
+    //     res.statusCode(200)
+    // }).catch((e) => {
+    //     res.json(e)
+    // })
 
 })
 
@@ -211,6 +220,30 @@ exports.listGroups = functions.https.onRequest(async (req, res) => {
     })
 
     res.json(groups_data)
+})
+
+// exports.setAreasTemp = functions.https.onRequest(async (req, res) => {
+//     const { data } = req.body;
+
+//     data.forEach(element => {
+//         var { key, name } = element;
+//         areasDB.doc(key).set({ name })
+//     })
+
+//     res.sendStatus(200)
+// })
+
+exports.getAreas = functions.https.onRequest(async (req, res) => {
+    var areas = [];
+
+    await areasDB.get().then(snapshot => {
+        snapshot.forEach(doc => {
+            areas.push({ key: doc.id, name: doc.data().name })
+        })
+        res.json({ areas })
+    }).catch(err => {
+        res.json({ error: err });
+    });
 })
 
 // exports.login = functions.https.onRequest(async (req, res) => {
