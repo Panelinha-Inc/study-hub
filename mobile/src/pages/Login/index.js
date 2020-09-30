@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Text, Image, TouchableOpacity } from 'react-native';
-import { SimpleLineIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import Dialog, {
   DialogTitle,
@@ -72,17 +71,13 @@ export default function Login() {
           console.log(errorMessage);
         }
       });
-  }
+  };
 
   // Lembrar de mudar o botão pra goBack()
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.navigate('HamburguerMenu')}>
-          <SimpleLineIcons name="arrow-left" size={28} color="#00BFF3" />
-        </TouchableOpacity>
         <Text style={styles.headerTitle}>Login</Text>
-        <Image style={{ width: 30, height: 30, borderRadius: 25 }} />
       </View>
       <View>
         {/* TODO: Usar a logo do projeto */}

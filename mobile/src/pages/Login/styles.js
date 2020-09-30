@@ -12,12 +12,13 @@ export default StyleSheet.create({
 
     header: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center'
     },
 
     headerTitle: {
         fontSize: 20,
+        alignSelf: 'center',
         fontWeight: 'bold'
     },
 

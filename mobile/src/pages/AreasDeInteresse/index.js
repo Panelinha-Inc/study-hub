@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 import SelectMultiple from 'react-native-select-multiple'
 import { SimpleLineIcons, FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import api from '../../services/api';
 
 // import { Feather, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
 // import { useNavigation } from '@react-navigation/native';
@@ -13,7 +14,16 @@ export default function AreaInteresse() {
 
   const [state, setState] = useState({ selectedAreas: [] });
   const navigate = useNavigation();
+  const route = useRoute();
 
+  const from = route.params.from;
+  const username = route.params.valueName;
+  const email = route.params.valueEmail;
+  const bio = route.params.valueBio;
+  const locate = route.params.valueLocalization;
+  const password = route.params.valuePass;
+  const photoBase64 = route.params.image;
+  
   const onSelectionsChange = (selectedAreas) => {
     setState({ selectedAreas })
   }
@@ -34,17 +44,27 @@ export default function AreaInteresse() {
     { value: 231254643, label: "Circuitos Digitais" },
   ]
 
-  function pressedButao() {
-    var lista = [];
+  async function pressedButao() {
+    var areasDeInteresse = [];
     state.selectedAreas.forEach((element) => {
-      lista.push(element.value);
+      areasDeInteresse.push(element.value);
     })
-    if (lista.length > 5) {
+    if (areasDeInteresse.length > 5) {
       ToastAndroid.showWithGravity("Escolha no máximo 5 opções!", ToastAndroid.LONG, ToastAndroid.BOTTOM);
-    } else if (lista.length < 1) {
+    } else if (areasDeInteresse.length < 1) {
       ToastAndroid.showWithGravity("Escolha no mínimo 1 opção!", ToastAndroid.LONG, ToastAndroid.BOTTOM);
     } else {
-      navigate.navigate('Home');
+      const response = await api.post('createUser', {
+        username,
+        password,
+        email,
+        bio,
+        locate,
+        areasDeInteresse,
+        photoBase64
+      })
+      // Enviando apenas o UUID do user
+      navigate.navigate('Home', { "user": response.data });
     }
   }
 

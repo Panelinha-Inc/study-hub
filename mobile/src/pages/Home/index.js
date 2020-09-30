@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native';
-import { Feather, SimpleLineIcons } from '@expo/vector-icons';
+import { SimpleLineIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import userImg from '../../assets/user.png'
