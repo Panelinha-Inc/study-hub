@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 import SelectMultiple from 'react-native-select-multiple'
 import { SimpleLineIcons, FontAwesome } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay'
 import api from '../../services/api';
 
 // import { Feather, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
@@ -23,6 +24,8 @@ export default function AreaInteresse() {
   const locate = route.params.valueLocalization;
   const password = route.params.valuePass;
   const photoBase64 = route.params.image;
+
+  const [spinner, setSpinner] = useState(false);
   
   const onSelectionsChange = (selectedAreas) => {
     setState({ selectedAreas })
@@ -54,6 +57,7 @@ export default function AreaInteresse() {
     } else if (areasDeInteresse.length < 1) {
       ToastAndroid.showWithGravity("Escolha no mínimo 1 opção!", ToastAndroid.LONG, ToastAndroid.BOTTOM);
     } else {
+      setSpinner(true);
       const response = await api.post('createUser', {
         username,
         password,
@@ -63,6 +67,7 @@ export default function AreaInteresse() {
         areasDeInteresse,
         photoBase64
       })
+      setSpinner(false);
       // Enviando apenas o UUID do user
       navigate.navigate('Home', { "user": response.data });
     }
@@ -70,6 +75,12 @@ export default function AreaInteresse() {
 
   return (
     <View style={styles.container}>
+
+      <Spinner
+        visible={spinner}
+        textContent={''}
+        textStyle={styles.spinnerTextStyle}
+      />
 
       <View style={styles.header}>
           <TouchableOpacity onPress={() => navigate.goBack()}>

@@ -35,7 +35,8 @@ export default StyleSheet.create({
 
     logoImage: {
         alignSelf: 'center',
-        marginTop: 70
+        marginTop: '30%',
+        marginBottom: '10%'
     },
 
     containerButton: {
