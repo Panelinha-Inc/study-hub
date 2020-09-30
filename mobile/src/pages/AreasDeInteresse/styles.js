@@ -37,7 +37,7 @@ export default StyleSheet.create({
     testList: {
         marginTop: -4,
         maxHeight: 400,
-        marginBottom: 20
+        marginBottom: '3%'
     },
 
     text: {
@@ -51,8 +51,8 @@ export default StyleSheet.create({
         alignItems: "center",
         alignSelf: 'center',
         backgroundColor: "#002E45",
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: '5%',
+        marginBottom: '10%',
         padding: 10,
         borderRadius: 10,
         height: 40,

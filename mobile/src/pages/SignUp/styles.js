@@ -22,7 +22,7 @@ export default StyleSheet.create({
     },
 
     inputs: {
-        marginTop: 20,
+        marginTop: '5%',
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
@@ -37,7 +37,7 @@ export default StyleSheet.create({
         height: 90,
         borderRadius: 100,
         alignSelf: 'center',
-        marginTop: 20,
+        marginTop: '10%',
     },
 
     button: {
@@ -46,7 +46,7 @@ export default StyleSheet.create({
         alignItems: "center",
         alignSelf: 'center',
         backgroundColor: "#002E45",
-        marginTop: 20,
+        marginTop: '10%',
         padding: 10,
         borderRadius: 10,
         height: 40,

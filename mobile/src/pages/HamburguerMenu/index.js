@@ -64,7 +64,7 @@ export default function Menu() {
             <View style={styles.separator} />
 
             <View>
-                <TouchableOpacity style={styles.viewOptions} onPress={() => { }}>
+                <TouchableOpacity style={styles.viewOptions} onPress={() => navigation.navigate('Login')}>
                     <AntDesign name="logout" size={28} color="#000" style={styles.icon} />
                     <Text style={styles.text}>Sair</Text>
                 </TouchableOpacity>

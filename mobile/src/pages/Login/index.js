@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Text, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay'
+
 import Dialog, {
   DialogTitle,
   DialogContent,
@@ -35,9 +37,11 @@ export default function Login() {
   const [valuePass, onChangePass] = useState('');
   const [state, setState] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [spinner, setSpinner] = useState(false);
 
-  const auth = (email, password) => {
-    firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
+  const auth = async (email, password) => {
+    setSpinner(true);
+    await firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
       console.log('successfully logged in!');
       // TODO: Adicionar ao navigate informações necessárias sobre o usuário para as outras telas
       navigation.navigate('Home', { user });
@@ -71,6 +75,7 @@ export default function Login() {
           console.log(errorMessage);
         }
       });
+    setSpinner(false);
   };
 
   // Lembrar de mudar o botão pra goBack()
@@ -82,6 +87,12 @@ export default function Login() {
       <View>
         {/* TODO: Usar a logo do projeto */}
         <Image source={logo} style={styles.logoImage} />
+
+        <Spinner
+          visible={spinner}
+          textContent={''}
+          textStyle={styles.spinnerTextStyle}
+        />
 
         <TextInput
           style={styles.inputs}
@@ -102,7 +113,7 @@ export default function Login() {
         />
 
         {/* TODO: Dar um jeito de fazer os botões obedecerem kkk */}
-        <View styles={styles.containerButton}>
+        <View style={styles.containerButton}>
           <TouchableOpacity onPress={() => auth(valueEmail, valuePass)} style={styles.button}>
             <Text style={styles.buttonText}>Entrar</Text>
           </TouchableOpacity>

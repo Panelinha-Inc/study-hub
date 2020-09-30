@@ -11,6 +11,9 @@ import AreaInteresse from './pages/AreasDeInteresse';
 import EditProfile from './pages/EditProfile';
 import SearchGroups from './pages/SearchGroups';
 import CreateGroup from './pages/CreateGroup';
+import GroupDetailAdmin from './pages/GroupDetailAdmin';
+import GroupDetailMember from './pages/GroupDetailMember';
+import GroupDetailNonMember from './pages/GroupDetailNonMember';
 
 const AppStack = createStackNavigator();
 
@@ -29,6 +32,9 @@ export default function Routes() {
                 <AppStack.Screen name="EditProfile" component={EditProfile} />
                 <AppStack.Screen name="SearchGroups" component={SearchGroups} />
                 <AppStack.Screen name="CreateGroup" component={CreateGroup} />
+                <AppStack.Screen name="GroupDetail" component={GroupDetailAdmin} />
+                <AppStack.Screen name="GroupMember" component={GroupDetailMember} />
+                <AppStack.Screen name="GroupNonMember" component={GroupDetailNonMember} />
 
             </AppStack.Navigator>
 
