@@ -28,7 +28,7 @@ export default function Menu() {
             <View style={styles.separator} />
 
             <View>
-                <TouchableOpacity style={styles.viewOptions} onPress={() => { }}>
+                <TouchableOpacity style={styles.viewOptions} onPress={() => {navigation.navigate('SearchGroups')}}>
                     <Feather name="search" size={28} color="#000" style={styles.icon} />
                     <Text style={styles.text}>Buscar grupos</Text>
                 </TouchableOpacity>
@@ -46,7 +46,7 @@ export default function Menu() {
             <View style={styles.separator} />
 
             <View>
-                <TouchableOpacity style={styles.viewOptions} onPress={() => { }}>
+                <TouchableOpacity style={styles.viewOptions} onPress={() => {navigation.navigate('CreateGroup')}}>
                     <AntDesign name="addusergroup" size={28} color="#000" style={styles.icon} />
                     <Text style={styles.text}>Criar grupo</Text>
                 </TouchableOpacity>
@@ -55,7 +55,7 @@ export default function Menu() {
             <View style={styles.separator} />
 
             <View>
-                <TouchableOpacity style={styles.viewOptions} onPress={() => { }}>
+                <TouchableOpacity style={styles.viewOptions} onPress={() => {  }}>
                     <Feather name="edit" size={28} color="#000" style={styles.icon} />
                     <Text style={styles.text}>Editar grupo</Text>
                 </TouchableOpacity>

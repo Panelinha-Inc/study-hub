@@ -9,6 +9,8 @@ import HamburguerMenu from './pages/HamburguerMenu';
 import ProfileMenu from './pages/ProfileMenu';
 import AreaInteresse from './pages/AreasDeInteresse';
 import EditProfile from './pages/EditProfile';
+import SearchGroups from './pages/SearchGroups';
+import CreateGroup from './pages/CreateGroup';
 
 const AppStack = createStackNavigator();
 
@@ -25,6 +27,8 @@ export default function Routes() {
                 <AppStack.Screen name="ProfileMenu" component={ProfileMenu} />
                 <AppStack.Screen name="AreaInteresse" component={AreaInteresse} />
                 <AppStack.Screen name="EditProfile" component={EditProfile} />
+                <AppStack.Screen name="SearchGroups" component={SearchGroups} />
+                <AppStack.Screen name="CreateGroup" component={CreateGroup} />
 
             </AppStack.Navigator>
 
