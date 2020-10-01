@@ -61,7 +61,7 @@ export default function Home() {
                 keyExtractor={incident => String(incident)}
                 renderItem={() => (
                     <View>
-                        <TouchableOpacity style={styles.groupBox}>
+                        <TouchableOpacity style={styles.groupBox} onPress={() => navigation.navigate('GroupDetailAdmin')}>
                             <View style={styles.viewImg}>
                                 <Image source={userImg} style={{ width: 50, height: 50, borderRadius: 25 }} />
                             </View>

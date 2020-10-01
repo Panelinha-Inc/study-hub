@@ -30,7 +30,7 @@ export default function GroupDetailAdmin() {
             
             <View>
                 <Image source={userImg} style={styles.profileImage} />
-                <Text style={styles.text}>Descrição: Grupo dedicado a aprender coisas óbvias de DS.</Text>
+                <Text style={styles.text}>Descrição: Vamos juntos aprender Data Science S2.</Text>
                 <Text style={styles.text}>Áreas: DS, ML, Estatística, Python.</Text>
                 <Text style={styles.text}>Geo-localização: -12.5869; -11.493.</Text>
             </View>
