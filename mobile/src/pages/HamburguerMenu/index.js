@@ -1,13 +1,17 @@
 import React from 'react';
 import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native';
 import { Feather, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import styles from './styles'
 
 export default function Menu() {
 
     const navigation = useNavigation();
+    const route = useRoute();
+
+    const user = route.params.user;
+    //console.log(`uid in hamburguer ${user}`);
 
     return (
         <View style={styles.container}>
@@ -19,7 +23,7 @@ export default function Menu() {
             </View>
 
             <View>
-                <TouchableOpacity style={styles.viewOptions} onPress={() => navigation.navigate('ProfileMenu')}>
+                <TouchableOpacity style={styles.viewOptions} onPress={() => navigation.navigate('ProfileMenu', { user })}>
                     <SimpleLineIcons name="user" size={28} color="#000" style={styles.icon} />
                     <Text style={styles.text}>Perfil</Text>
                 </TouchableOpacity>

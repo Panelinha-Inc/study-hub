@@ -17,6 +17,7 @@ export default function AreaInteresse() {
   const navigate = useNavigation();
   const route = useRoute();
 
+  const user = route.params.user;
   const from = route.params.from;
   const username = route.params.valueName;
   const email = route.params.valueEmail;
@@ -26,7 +27,7 @@ export default function AreaInteresse() {
   const photoBase64 = route.params.image;
 
   const [spinner, setSpinner] = useState(false);
-  
+
   const onSelectionsChange = (selectedAreas) => {
     setState({ selectedAreas })
   }
@@ -58,6 +59,23 @@ export default function AreaInteresse() {
       ToastAndroid.showWithGravity("Escolha no mínimo 1 opção!", ToastAndroid.LONG, ToastAndroid.BOTTOM);
     } else {
       setSpinner(true);
+      let response = null;
+      if (from == 'SignUp') {
+        response = await createUser(areasDeInteresse);
+        // Enviando apenas o UUID do user
+        navigate.navigate('Home', { "user": response.data });
+      } else if (from == 'editProfile') {
+        response = await updateUser(areasDeInteresse);
+        navigate.navigate('Home', { "user": user });
+      }
+      console.log('Response: ', response);
+      setSpinner(false);
+    }
+  }
+
+  const createUser = async (areasDeInteresse) => {
+    try {
+      console.log(areasDeInteresse);
       const response = await api.post('createUser', {
         username,
         password,
@@ -66,12 +84,37 @@ export default function AreaInteresse() {
         locate,
         areasDeInteresse,
         photoBase64
-      })
-      setSpinner(false);
-      // Enviando apenas o UUID do user
-      navigate.navigate('Home', { "user": response.data });
+      });
+      console.log(response);
+      return response;
+    } catch (err) {
+      console.log("Erro ao criar user.");
+      console.log(err);
     }
-  }
+  };
+
+  const updateUser = async (areasDeInteresse) => {
+    const data = {
+      username,
+      bio,
+      locate,
+      areasDeInteresse,
+      photoBase64
+    };
+
+    try {
+      console.log(user);
+      const response = await api.post('updateUser', data, {
+        headers: {
+          uid: user
+        }
+      });
+      return response;
+    } catch (err) {
+      console.log("Erro ao atualizar os dados.");
+      console.log(err);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -83,10 +126,10 @@ export default function AreaInteresse() {
       />
 
       <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigate.goBack()}>
-              <SimpleLineIcons name = "arrow-left" size = {28} color = "#00BFF3" />
-          </TouchableOpacity> 
-          <Text style={styles.headerTitle}>Áreas de interesse</Text>
+        <TouchableOpacity onPress={() => navigate.goBack()}>
+          <SimpleLineIcons name="arrow-left" size={28} color="#00BFF3" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Áreas de interesse</Text>
       </View>
 
       <View>
