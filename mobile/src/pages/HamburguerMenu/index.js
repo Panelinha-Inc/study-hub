@@ -50,7 +50,7 @@ export default function Menu() {
             <View style={styles.separator} />
 
             <View>
-                <TouchableOpacity style={styles.viewOptions} onPress={() => {navigation.navigate('CreateGroup')}}>
+                <TouchableOpacity style={styles.viewOptions} onPress={() => {navigation.navigate('CreateGroup', { user })}}>
                     <AntDesign name="addusergroup" size={28} color="#000" style={styles.icon} />
                     <Text style={styles.text}>Criar grupo</Text>
                 </TouchableOpacity>
