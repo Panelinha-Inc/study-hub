@@ -11,7 +11,7 @@ import api from '../../services/api';
 
 import styles from './styles';
 
-export default function AreaInteresse() {
+export default async function AreaInteresse() {
 
   const [state, setState] = useState({ selectedAreas: [] });
   const navigate = useNavigation();
@@ -32,7 +32,7 @@ export default function AreaInteresse() {
     setState({ selectedAreas })
   }
 
-  const data = [
+  var data = [
     { value: 2384, label: "Python" },
     { value: 23845, label: "Machine Learning" },
     { value: 2314, label: "Deep Learning" },
@@ -47,6 +47,18 @@ export default function AreaInteresse() {
     { value: 2312, label: "Programação Funcional" },
     { value: 231254643, label: "Circuitos Digitais" },
   ]
+
+  const getAreas = async () => {
+    const res = await api.get('getAreas')
+    let areas = [];
+    res.data.areas.forEach(element => {
+      areas.push({ value: element.key, label: element.name })
+    });
+    return areas
+  }
+
+  // var data = await getAreas();
+  console.log(data)
 
   async function pressedButao() {
     var areasDeInteresse = [];
