@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {View, FlatList, Text, Image, TouchableOpacity} from 'react-native';
 import { Feather, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Dialog, {
     DialogTitle,
     DialogContent,
@@ -14,6 +14,10 @@ import styles from './styles';
 export default function ProfileMenu() {
 
     const navigation = useNavigation();
+    const route = useRoute();
+
+    const user = route.params.user;
+    //console.log(`uid in profiler menu ${user}`);
 
     const [state, setState] = useState(false);
 
@@ -27,7 +31,7 @@ export default function ProfileMenu() {
             </View>
 
             <View>
-                <TouchableOpacity style={styles.viewOptions} onPress={() => navigation.navigate("EditProfile")}>
+                <TouchableOpacity style={styles.viewOptions} onPress={() => navigation.navigate("EditProfile", { user })}>
                     <Feather name = "edit" size = {28} color = "#000" style={styles.icon}/>
                     <Text style={styles.text}>Editar perfil</Text>
                 </TouchableOpacity>

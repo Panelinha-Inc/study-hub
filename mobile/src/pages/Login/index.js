@@ -43,8 +43,9 @@ export default function Login() {
     setSpinner(true);
     await firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
       console.log('successfully logged in!');
+      //console.log(`User uid: ${user.user.uid}`);
       // TODO: Adicionar ao navigate informações necessárias sobre o usuário para as outras telas
-      navigation.navigate('Home', { user });
+      navigation.navigate('Home', { 'user': user.user.uid });
     })
       .catch(function (error) {
         // Handle Errors here.

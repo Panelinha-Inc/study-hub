@@ -13,12 +13,12 @@ export default function Home() {
     const route = useRoute();
 
     const user = route.params.user;
-    console.log(user)
+    //console.log(user);
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('HamburguerMenu')}>
+                <TouchableOpacity onPress={() => navigation.navigate('HamburguerMenu', { user })}>
                     <SimpleLineIcons name="menu" size={28} color="#00BFF3" />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>
