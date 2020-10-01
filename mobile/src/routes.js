@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import HamburguerMenu from './pages/HamburguerMenu';
 import ProfileMenu from './pages/ProfileMenu';
 import AreaInteresse from './pages/AreasDeInteresse';
+import AreaInteresseGrupo from './pages/AreasDeInteresseGrupo';
 import EditProfile from './pages/EditProfile';
 import CreateGroup from './pages/CreateGroup';
 import GroupDetailAdmin from './pages/GroupDetailAdmin';
@@ -28,6 +29,7 @@ export default function Routes() {
                 <AppStack.Screen name="HamburguerMenu" component={HamburguerMenu} />
                 <AppStack.Screen name="ProfileMenu" component={ProfileMenu} />
                 <AppStack.Screen name="AreaInteresse" component={AreaInteresse} />
+                <AppStack.Screen name="AreaInteresseGrupo" component={AreaInteresseGrupo} />
                 <AppStack.Screen name="EditProfile" component={EditProfile} />
                 <AppStack.Screen name="CreateGroup" component={CreateGroup} />
                 <AppStack.Screen name="GroupDetail" component={GroupDetailAdmin} />
