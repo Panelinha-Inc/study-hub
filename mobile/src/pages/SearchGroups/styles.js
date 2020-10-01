@@ -38,12 +38,13 @@ export default StyleSheet.create({
     },
 
     searchIcon: {
-        marginTop: 41,
+        marginTop: 40,
         borderRadius: 10,
         //left: 220,
         backgroundColor: '#f2f2f2',
         borderColor: "#f2f2f2",
-        padding: 11
+        padding: 11,
+        height: 40
     },
 
     groupBox: {
